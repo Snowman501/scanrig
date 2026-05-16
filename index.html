@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0d12" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>ScanRig // Diagnostic & Study Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     ScanRig — Diagnostic Console Aesthetic
+     Inspired by: Snap-on Modis, Fluke meters, CRT terminals
+     ============================================================ */
+  :root {
+    --bg:           #0a0d12;
+    --bg-elev:     #11161e;
+    --surface:     #161c26;
+    --surface-2:   #1c2330;
+    --border:      #232c3a;
+    --border-hot:  #324155;
+    --text:        #e8e6e1;
+    --text-dim:    #8a93a3;
+    --text-faint:  #525d6e;
+    --cyan:        #00d9ff;
+    --cyan-dim:    #0a8fa8;
+    --amber:       #ffb800;
+    --amber-dim:   #b88200;
+    --lime:        #84cc16;
+    --red:         #ff4d4d;
+    --grid-line:   rgba(0, 217, 255, 0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    /* subtle CRT-style grid */
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Scanline overlay — subtle, doesn't interfere with readability */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+    z-index: 999;
+    mix-blend-mode: multiply;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+  }
+
+  input {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    background: none;
+    color: inherit;
+  }
+
+  /* ============================================================
+     SPLASH / AGREEMENT SCREEN
+     ============================================================ */
+  #splash {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    z-index: 100;
+    padding: 32px 24px;
+    padding-top: max(32px, env(safe-area-inset-top, 32px));
+    padding-bottom: max(40px, env(safe-area-inset-bottom, 40px));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .splash-brand {
+    margin-top: 24px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .splash-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    border: 1px solid var(--border-hot);
+    border-radius: 4px;
+    background: var(--surface);
+    box-shadow: inset 0 0 30px rgba(0, 217, 255, 0.06), 0 0 40px rgba(0, 217, 255, 0.04);
+  }
+
+  .splash-logo .dot {
+    width: 10px; height: 10px;
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--cyan);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .splash-logo .mark {
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    color: var(--text);
+  }
+
+  .splash-tag {
+    margin-top: 18px;
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .splash-body {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .splash-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    background: var(--surface);
+  }
+
+  .splash-card h2 {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .splash-card p {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .splash-card p:last-child { margin-bottom: 0; }
+
+  .splash-actions {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: 24px;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: #001218;
+    font-weight: 800;
+    padding: 16px;
+    border-radius: 4px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 13px;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 24px rgba(0, 217, 255, 0.25);
+  }
+
+  .btn-primary:active { transform: translateY(1px); box-shadow: 0 0 12px rgba(0, 217, 255, 0.2); }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border-hot);
+    color: var(--text-dim);
+    padding: 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ============================================================
+     APP SHELL
+     ============================================================ */
+  #app {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  #app.active { display: flex; }
+
+  .app-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elev);
+  }
+
+  .app-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    font-weight: 800;
+  }
+
+  .app-title .dot {
+    width: 8px; height: 8px;
+    background: var(--lime);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--lime);
+  }
+
+  .sync-badge {
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .sync-badge.syncing { color: var(--amber); }
+  .sync-badge.ok      { color: var(--lime); }
+  .sync-badge.err     { color: var(--red); }
+
+  /* ============================================================
+     MAIN VIEW
+     ============================================================ */
+  .view {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+    padding-bottom: 96px;
+    display: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .view.active { display: block; }
+
+  .view-header {
+    margin-bottom: 16px;
+  }
+
+  .view-header .label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan-dim);
+    margin-bottom: 4px;
+  }
+
+  .view-header h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
+  /* --- Diagnostic Console --- */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border-hot);
+    border-radius: 4px;
+    background: var(--surface);
+    margin-bottom: 16px;
+  }
+
+  .search-bar:focus-within {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.12);
+  }
+
+  .search-bar .prefix {
+    color: var(--cyan);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    font-size: 13px;
+  }
+
+  .search-bar input {
+    flex: 1;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .search-bar input::placeholder {
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 12px;
+  }
+
+  .result-list {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .result-card {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 4px;
+    background: var(--surface);
+    padding: 14px;
+  }
+
+  .result-card .code {
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+  }
+
+  .result-card .system {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  .result-card .definition {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .result-card .steps-label {
+    margin-top: 14px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cyan-dim);
+  }
+
+  .result-card .steps {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-dim);
+    white-space: pre-wrap;
+    line-height: 1.7;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-faint);
+    padding: 40px 20px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* --- Study Rig --- */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .stat {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px;
+    background: var(--surface);
+    text-align: center;
+  }
+
+  .stat .label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .stat .value {
+    margin-top: 4px;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--cyan);
+  }
+
+  .question-card {
+    border: 1px solid var(--border-hot);
+    border-radius: 6px;
+    background: var(--surface);
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .question-card .qmeta {
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .question-card .qtext {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .options-list {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+    text-align: left;
+    width: 100%;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .option:active { background: var(--surface-2); }
+  .option .key {
+    width: 22px; height: 22px;
+    border: 1px solid var(--border-hot);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .option .text {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .option.correct {
+    border-color: var(--lime);
+    background: rgba(132, 204, 22, 0.08);
+  }
+  .option.correct .key {
+    background: var(--lime);
+    border-color: var(--lime);
+    color: #001218;
+  }
+  .option.wrong {
+    border-color: var(--red);
+    background: rgba(255, 77, 77, 0.08);
+  }
+  .option.wrong .key {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+  .option:disabled { cursor: not-allowed; }
+
+  .rationale-card {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    border-radius: 4px;
+    padding: 14px;
+    background: var(--surface);
+    margin-top: 14px;
+    display: none;
+  }
+  .rationale-card.active { display: block; }
+  .rationale-card .label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+  .rationale-card .body {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .next-btn {
+    margin-top: 14px;
+    width: 100%;
+    padding: 14px;
+    background: var(--cyan);
+    color: #001218;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-radius: 4px;
+    display: none;
+  }
+  .next-btn.active { display: block; }
+  .next-btn:active { transform: translateY(1px); }
+
+  /* ============================================================
+     BOTTOM NAV
+     ============================================================ */
+  .bottom-nav {
+    position: fixed;
+    left: 0; right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--bg-elev);
+    border-top: 1px solid var(--border);
+    padding: 8px 8px env(safe-area-inset-bottom, 8px);
+    z-index: 50;
+  }
+
+  .nav-btn {
+    padding: 12px 8px;
+    border-radius: 4px;
+    color: var(--text-faint);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .nav-btn .icon {
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  .nav-btn.active {
+    color: var(--cyan);
+    background: rgba(0, 217, 255, 0.08);
+  }
+
+  /* ============================================================
+     UTILITIES
+     ============================================================ */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-hot); border-radius: 2px; }
+
+  .fade-in {
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SPLASH / TERMS
+     ============================================================ -->
+<section id="splash">
+  <div class="splash-brand">
+    <div class="splash-logo">
+      <span class="dot"></span>
+      <span class="mark">SCANRIG // v0.1</span>
+    </div>
+    <div class="splash-tag">Diagnostic &nbsp;·&nbsp; Study &nbsp;·&nbsp; Offline</div>
+  </div>
+
+  <div class="splash-body">
+    <div class="splash-card">
+      <h2>// Terms of Use</h2>
+      <p>ScanRig is an educational diagnostic reference and study tool. All trouble codes, definitions, and exam questions are for training and study purposes only.</p>
+      <p>This tool does <strong style="color:var(--amber)">not</strong> replace OEM service information, certified diagnostic equipment, or hands-on training. Always confirm repair procedures against manufacturer documentation.</p>
+      <p>Data is cached locally on your device. No accounts, no tracking, no servers.</p>
+    </div>
+
+    <div class="splash-actions">
+      <button class="btn-primary" id="accept-btn">[ Initialize Console ]</button>
+      <button class="btn-secondary" id="decline-btn">Decline &amp; Exit</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     APP SHELL
+     ============================================================ -->
+<div id="app">
+  <header class="app-header">
+    <div class="app-title">
+      <span class="dot"></span>
+      <span>SCANRIG</span>
+    </div>
+    <div class="sync-badge" id="sync-status">
+      <span id="sync-text">READY</span>
+    </div>
+  </header>
+
+  <!-- ===== DIAGNOSTIC CONSOLE ===== -->
+  <main class="view active" id="view-diag">
+    <div class="view-header">
+      <div class="label">// Module 01</div>
+      <h1>Diagnostic Console</h1>
+    </div>
+
+    <div class="search-bar">
+      <span class="prefix">&gt;</span>
+      <input
+        id="dtc-input"
+        type="text"
+        autocomplete="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        placeholder="Enter code or keyword…"
+      />
+    </div>
+
+    <div class="result-list" id="dtc-results">
+      <div class="empty-state">Type a code (e.g. P0171) or system keyword</div>
+    </div>
+  </main>
+
+  <!-- ===== STUDY RIG ===== -->
+  <main class="view" id="view-study">
+    <div class="view-header">
+      <div class="label">// Module 02</div>
+      <h1>Study Rig</h1>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat">
+        <div class="label">Asked</div>
+        <div class="value" id="stat-asked">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Correct</div>
+        <div class="value" id="stat-correct">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Rate</div>
+        <div class="value" id="stat-rate">—</div>
+      </div>
+    </div>
+
+    <div class="question-card" id="q-card">
+      <div class="qmeta" id="q-meta">QUESTION ID: —</div>
+      <div class="qtext" id="q-text">Loading question bank…</div>
+    </div>
+
+    <div class="options-list" id="options-list"></div>
+
+    <div class="rationale-card" id="rationale">
+      <div class="label">// Rationale</div>
+      <div class="body" id="rationale-body"></div>
+    </div>
+
+    <button class="next-btn" id="next-btn">[ Next Question ]</button>
+  </main>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-view="view-diag">
+      <span class="icon">◉</span>
+      <span>Console</span>
+    </button>
+    <button class="nav-btn" data-view="view-study">
+      <span class="icon">▣</span>
+      <span>Study</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ============================================================
+     APPLICATION LOGIC
+     ============================================================ -->
+<script>
+'use strict';
+
+/* ----------------------------------------------------------
+   CONFIG — point BASE_URL at your GitHub Pages / CDN once
+   shards are hosted remotely.
+   ---------------------------------------------------------- */
+const CONFIG = {
+  BASE_URL: 'https://raw.githubusercontent.com/USERNAME/REPO/main/shards/',
+  CACHE_PREFIX: 'scanrig.shard.',
+  ACCEPTED_KEY: 'scanrig.accepted',
+  STATS_KEY:    'scanrig.stats'
+};
+
+/* ----------------------------------------------------------
+   EMBEDDED FALLBACK SHARDS
+   These ship inside the HTML so the app is fully functional
+   on first launch even with zero network. The sync manager
+   will overwrite these from remote on next online run.
+   ---------------------------------------------------------- */
+const EMBEDDED_SHARDS = {
+  'dtc.core': {
+    shard_version: '1.0.0',
+    data_type: 'diagnostic_trouble_codes',
+    entries: [
+      {
+        code: 'P0171',
+        system: 'Powertrain (Fuel and Air Metering)',
+        definition: 'System Too Lean (Bank 1)',
+        inspection_steps:
+          '1. Check for vacuum leaks downstream of the MAF sensor.\n' +
+          '2. Inspect fuel pump pressure and delivery volume.\n' +
+          '3. Verify unmetered air intrusion via the PCV valve system.'
+      },
+      {
+        code: 'P0300',
+        system: 'Powertrain (Ignition / Misfire)',
+        definition: 'Random / Multiple Cylinder Misfire Detected',
+        inspection_steps:
+          '1. Pull freeze-frame data and confirm misfire counters per cylinder.\n' +
+          '2. Inspect plugs, coils, and ignition wiring for arc paths.\n' +
+          '3. Test fuel pressure and injector balance.\n' +
+          '4. Verify compression and check for vacuum/intake leaks.'
+      },
+      {
+        code: 'P0420',
+        system: 'Powertrain (Catalyst System)',
+        definition: 'Catalyst System Efficiency Below Threshold (Bank 1)',
+        inspection_steps:
+          '1. Compare upstream vs downstream O2 sensor activity on scan tool.\n' +
+          '2. Inspect exhaust for leaks ahead of the rear O2 sensor.\n' +
+          '3. Confirm no underlying misfire or lean/rich condition skewing readings.'
+      }
+    ]
+  },
+  'study.A6': {
+    shard_version: '1.0.0',
+    data_type: 'synthetic_study_drill',
+    entries: [
+      {
+        id: 'A6_E001',
+        question: 'A digital multimeter shows a 0.8-volt drop across a ground circuit connection when the starter motor is cranking. What does this measurement indicate?',
+        options: {
+          A: 'Normal voltage flow for a high-amperage circuit.',
+          B: 'Excessive resistance in the ground side circuit.',
+          C: 'An open circuit condition causing immediate system shutdown.',
+          D: 'A short-to-power condition on the supply line.'
+        },
+        correct_answer: 'B',
+        rationale: 'A voltage drop exceeding 0.1 to 0.2 volts on a standard ground connection indicates unwanted resistance. During cranking, excessive ground-side resistance drops total voltage available to the starter solenoid.'
+      },
+      {
+        id: 'A6_E002',
+        question: 'When testing a relay, Technician A says the coil should have low resistance (under 1 ohm). Technician B says the coil typically shows 50-120 ohms. Who is correct?',
+        options: {
+          A: 'Technician A only.',
+          B: 'Technician B only.',
+          C: 'Both technicians.',
+          D: 'Neither technician.'
+        },
+        correct_answer: 'B',
+        rationale: 'A standard automotive relay control coil typically reads between 50 and 120 ohms. A reading near zero indicates a shorted coil; an OL reading indicates an open coil.'
+      },
+      {
+        id: 'A6_E003',
+        question: 'A vehicle has a parasitic draw of 250 mA after all modules have gone to sleep. What is the most likely conclusion?',
+        options: {
+          A: 'Within normal specification — no action needed.',
+          B: 'Exceeds typical 50 mA limit; a module or circuit is keeping a load active.',
+          C: 'Battery is undersized for the vehicle.',
+          D: 'Alternator diode failure causing AC ripple.'
+        },
+        correct_answer: 'B',
+        rationale: 'Most modern vehicles target under 50 mA of key-off draw after sleep. 250 mA is roughly five times that target and will discharge a healthy battery within days, indicating a module or accessory circuit is not entering sleep state correctly.'
+      }
+    ]
+  }
+};
+
+/* ----------------------------------------------------------
+   STORAGE HELPERS — wrap localStorage with try/catch so a
+   private-mode browser or quota error never crashes the app.
+   ---------------------------------------------------------- */
+const Storage = {
+  get(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  },
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (e) { return false; }
+  },
+  remove(key) {
+    try { localStorage.removeItem(key); } catch (e) {}
+  }
+};
+
+/* ----------------------------------------------------------
+   SYNC MANAGER — the bootloader Loren specified
+     1. Check local cache first
+     2. If missing, fetch from BASE_URL/{shardName}.json
+     3. Commit to localStorage
+     4. Return parsed JSON
+   ---------------------------------------------------------- */
+async function syncDataModule(shardName) {
+  const cacheKey = CONFIG.CACHE_PREFIX + shardName;
+
+  // 1) Cache hit — return immediately
+  const cached = Storage.get(cacheKey);
+  if (cached) return cached;
+
+  // 2) Cache miss — try remote
+  setSyncStatus('syncing', 'SYNC ' + shardName);
+  try {
+    const res = await fetch(CONFIG.BASE_URL + shardName + '.json', { cache: 'no-cache' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    Storage.set(cacheKey, data);
+    setSyncStatus('ok', 'SYNCED');
+    return data;
+  } catch (err) {
+    // 3) Remote failed — fall back to embedded
+    const fallback = EMBEDDED_SHARDS[shardName] || null;
+    if (fallback) {
+      Storage.set(cacheKey, fallback);
+      setSyncStatus('ok', 'LOCAL');
+      return fallback;
+    }
+    setSyncStatus('err', 'OFFLINE');
+    return null;
+  }
+}
+
+function setSyncStatus(state, text) {
+  const el = document.getElementById('sync-status');
+  el.classList.remove('syncing', 'ok', 'err');
+  el.classList.add(state);
+  document.getElementById('sync-text').textContent = text;
+}
+
+/* ----------------------------------------------------------
+   SPLASH / ACCEPT GATE
+   ---------------------------------------------------------- */
+function initSplash() {
+  if (Storage.get(CONFIG.ACCEPTED_KEY)) {
+    enterApp();
+    return;
+  }
+  document.getElementById('accept-btn').addEventListener('click', () => {
+    Storage.set(CONFIG.ACCEPTED_KEY, { ts: Date.now() });
+    enterApp();
+  });
+  document.getElementById('decline-btn').addEventListener('click', () => {
+    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:#525d6e;font-family:JetBrains Mono,monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;">// Session terminated</div>';
+  });
+}
+
+function enterApp() {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('app').classList.add('active');
+  bootstrapApp();
+}
+
+/* ----------------------------------------------------------
+   BOOTSTRAP — load shards, wire up modules
+   ---------------------------------------------------------- */
+let DTC_BANK = [];
+let STUDY_BANK = [];
+
+async function bootstrapApp() {
+  setSyncStatus('syncing', 'BOOT');
+  const [dtc, study] = await Promise.all([
+    syncDataModule('dtc.core'),
+    syncDataModule('study.A6')
+  ]);
+  DTC_BANK = (dtc && dtc.entries) || [];
+  STUDY_BANK = (study && study.entries) || [];
+
+  initDiagnosticConsole();
+  initStudyRig();
+  initNav();
+}
+
+/* ----------------------------------------------------------
+   NAVIGATION
+   ---------------------------------------------------------- */
+function initNav() {
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.view;
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === target));
+    });
+  });
+}
+
+/* ----------------------------------------------------------
+   DIAGNOSTIC CONSOLE
+   ---------------------------------------------------------- */
+function initDiagnosticConsole() {
+  const input = document.getElementById('dtc-input');
+  const results = document.getElementById('dtc-results');
+
+  function render(query) {
+    const q = query.trim().toUpperCase();
+    if (!q) {
+      results.innerHTML = '<div class="empty-state">Type a code (e.g. P0171) or system keyword</div>';
+      return;
+    }
+    const matches = DTC_BANK.filter(e =>
+      e.code.toUpperCase().includes(q) ||
+      e.definition.toUpperCase().includes(q) ||
+      e.system.toUpperCase().includes(q)
+    );
+    if (matches.length === 0) {
+      results.innerHTML = '<div class="empty-state">No matches in local bank</div>';
+      return;
+    }
+    results.innerHTML = matches.map(e => `
+      <article class="result-card fade-in">
+        <div class="code">${escapeHtml(e.code)}</div>
+        <div class="system">${escapeHtml(e.system)}</div>
+        <div class="definition">${escapeHtml(e.definition)}</div>
+        <div class="steps-label">// Inspection Steps</div>
+        <div class="steps">${escapeHtml(e.inspection_steps)}</div>
+      </article>
+    `).join('');
+  }
+
+  input.addEventListener('input', e => render(e.target.value));
+}
+
+/* ----------------------------------------------------------
+   STUDY RIG
+   ---------------------------------------------------------- */
+let currentQuestion = null;
+let stats = Storage.get(CONFIG.STATS_KEY) || { asked: 0, correct: 0 };
+
+function initStudyRig() {
+  document.getElementById('next-btn').addEventListener('click', nextQuestion);
+  renderStats();
+  nextQuestion();
+}
+
+function renderStats() {
+  document.getElementById('stat-asked').textContent = stats.asked;
+  document.getElementById('stat-correct').textContent = stats.correct;
+  const rate = stats.asked > 0 ? Math.round((stats.correct / stats.asked) * 100) + '%' : '—';
+  document.getElementById('stat-rate').textContent = rate;
+}
+
+function nextQuestion() {
+  if (STUDY_BANK.length === 0) {
+    document.getElementById('q-text').textContent = 'No questions in bank.';
+    return;
+  }
+  currentQuestion = STUDY_BANK[Math.floor(Math.random() * STUDY_BANK.length)];
+
+  document.getElementById('q-meta').textContent = 'QUESTION ID: ' + currentQuestion.id;
+  document.getElementById('q-text').textContent = currentQuestion.question;
+
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  Object.entries(currentQuestion.options).forEach(([key, text]) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="key">${key}</span><span class="text">${escapeHtml(text)}</span>`;
+    btn.addEventListener('click', () => evaluateAnswer(key, btn));
+    list.appendChild(btn);
+  });
+
+  document.getElementById('rationale').classList.remove('active');
+  document.getElementById('next-btn').classList.remove('active');
+}
+
+function evaluateAnswer(picked, pickedBtn) {
+  const correctKey = currentQuestion.correct_answer;
+  const correct = picked === correctKey;
+
+  document.querySelectorAll('.option').forEach(btn => {
+    btn.disabled = true;
+    const key = btn.querySelector('.key').textContent;
+    if (key === correctKey) btn.classList.add('correct');
+    else if (btn === pickedBtn) btn.classList.add('wrong');
+  });
+
+  const rat = document.getElementById('rationale');
+  document.getElementById('rationale-body').textContent = currentQuestion.rationale;
+  rat.classList.add('active');
+  document.getElementById('next-btn').classList.add('active');
+
+  stats.asked += 1;
+  if (correct) stats.correct += 1;
+  Storage.set(CONFIG.STATS_KEY, stats);
+  renderStats();
+}
+
+/* ----------------------------------------------------------
+   UTIL
+   ---------------------------------------------------------- */
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/* ----------------------------------------------------------
+   GO
+   ---------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', initSplash);
+</script>
+</body>
+</html>
