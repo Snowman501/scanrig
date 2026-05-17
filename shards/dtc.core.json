@@ -1,12 +1,174 @@
 {
-  "shard_version": "1.0.0",
+  "shard_version": "2.0.0",
   "data_type": "diagnostic_trouble_codes",
   "entries": [
+    {
+      "code": "P0100",
+      "system": "Powertrain (MAF Sensor)",
+      "definition": "Mass Air Flow Sensor Circuit Malfunction",
+      "inspection_steps": "1. Check MAF sensor connector for corrosion, bent pins, or backed-out terminals.\n2. With KOEO, verify 12V reference and proper ground at the sensor harness.\n3. Inspect the sensor element for contamination — oil from an over-oiled air filter is a common cause.\n4. Compare actual MAF gram/sec reading against spec for idle and snap-throttle conditions."
+    },
+    {
+      "code": "P0101",
+      "system": "Powertrain (MAF Sensor)",
+      "definition": "Mass Air Flow Sensor Circuit Range / Performance",
+      "inspection_steps": "1. Check for air leaks between the MAF housing and throttle body — any split hose bypasses the sensor.\n2. Verify air filter isn't severely restricted and the snorkel is clear.\n3. Inspect the MAF element for debris or oil film — clean with MAF-safe electronics cleaner and retest.\n4. Compare live MAF gram/sec to expected range: roughly 2-7 g/s at idle, scaling up with RPM."
+    },
+    {
+      "code": "P0102",
+      "system": "Powertrain (MAF Sensor)",
+      "definition": "Mass Air Flow Sensor Circuit Low Input",
+      "inspection_steps": "1. Back-probe the signal pin and confirm it rises above 0.5V at idle — a grounded signal wire reads near zero.\n2. Inspect wiring harness between MAF and PCM for chafing against exhaust or sharp body edges.\n3. Confirm sensor power supply is present; a missing voltage reference will pull the signal low.\n4. Substitute a known-good sensor if wiring checks out clean."
+    },
+    {
+      "code": "P0105",
+      "system": "Powertrain (MAP Sensor)",
+      "definition": "Manifold Absolute Pressure Sensor Circuit Malfunction",
+      "inspection_steps": "1. Check the vacuum port — confirm the hose to the sensor isn't kinked, cracked, or disconnected.\n2. Verify 5V reference and ground at the sensor connector with KOEO.\n3. A MAP signal stuck at the rail (0V or 5V) with no variation under any condition usually points to an open or shorted signal wire."
+    },
+    {
+      "code": "P0106",
+      "system": "Powertrain (MAP Sensor)",
+      "definition": "Manifold Absolute Pressure Sensor Circuit Range / Performance",
+      "inspection_steps": "1. Confirm the MAP reading makes sense: near atmospheric (~100 kPa) at key-on, dropping to 25-45 kPa at idle.\n2. Check vacuum line for small cracks — a tiny pinhole causes erratic readings under load.\n3. Apply vacuum with a hand pump and watch the signal on scan data — it should move smoothly and proportionally.\n4. Cross-check MAP kPa value against a vacuum gauge on the same port."
+    },
+    {
+      "code": "P0107",
+      "system": "Powertrain (MAP Sensor)",
+      "definition": "Manifold Absolute Pressure Sensor Circuit Low Input",
+      "inspection_steps": "1. A low MAP signal tells the PCM the engine is under extreme vacuum — check for a disconnected or collapsed vacuum source.\n2. Back-probe the signal wire: below ~0.3V with engine running is out of range.\n3. Inspect the signal circuit for a short to ground in the harness between sensor and PCM."
+    },
+    {
+      "code": "P0110",
+      "system": "Powertrain (IAT Sensor)",
+      "definition": "Intake Air Temperature Sensor Circuit Malfunction",
+      "inspection_steps": "1. Check connector integrity at the IAT sensor — it is often built into the MAF housing body.\n2. Verify 5V reference and sensor ground with KOEO.\n3. Measure resistance across the sensor terminals and compare to the manufacturer temperature-resistance chart."
+    },
+    {
+      "code": "P0112",
+      "system": "Powertrain (IAT Sensor)",
+      "definition": "Intake Air Temperature Sensor Circuit Low Input",
+      "inspection_steps": "1. Low IAT signal voltage reads as extreme heat to the PCM — check for a signal wire shorted to ground.\n2. Unplug the sensor: signal should climb toward 5V when disconnected if the PCM circuit is intact.\n3. Replace sensor if resistance reads near zero ohms — the element has shorted internally."
+    },
+    {
+      "code": "P0113",
+      "system": "Powertrain (IAT Sensor)",
+      "definition": "Intake Air Temperature Sensor Circuit High Input",
+      "inspection_steps": "1. High IAT signal voltage tells the PCM intake air is arctic cold — almost always an open circuit.\n2. Unplug sensor and jumper signal to ground: if code clears and reading drops, the sensor or wiring is open.\n3. Inspect sensor harness for corrosion or a broken wire at the connector crimp point."
+    },
+    {
+      "code": "P0115",
+      "system": "Powertrain (ECT Sensor)",
+      "definition": "Engine Coolant Temperature Sensor Circuit Malfunction",
+      "inspection_steps": "1. Confirm coolant level — a low system can trap air pockets at the sensor location.\n2. Back-probe sensor signal: should swing from ~0.3V fully warm to ~4.5V at cold soak.\n3. Check connector for green corrosion — ECT sensors live in a wet, high-heat environment and corrode faster than most."
+    },
+    {
+      "code": "P0116",
+      "system": "Powertrain (ECT Sensor)",
+      "definition": "Engine Coolant Temperature Sensor Circuit Range / Performance",
+      "inspection_steps": "1. Compare scan tool ECT reading to an IR thermometer on the thermostat housing at cold startup.\n2. Verify the thermostat opens at rated temperature — a stuck-open thermostat causes genuinely cold ECT readings under normal conditions.\n3. Watch the warm-up curve on live data: ECT should climb steadily and stabilize near operating temp within 10-15 minutes of cold start."
+    },
+    {
+      "code": "P0117",
+      "system": "Powertrain (ECT Sensor)",
+      "definition": "Engine Coolant Temperature Sensor Circuit Low Input",
+      "inspection_steps": "1. A low ECT signal reads as extreme heat to the PCM — check for a signal wire shorted to ground.\n2. Disconnect sensor; if reading immediately shows -40°F it confirms an open on the signal wire, not a short.\n3. Inspect sensor resistance: hot coolant (212°F) typically reads roughly 150-250 ohms on a standard NTC thermistor."
+    },
+    {
+      "code": "P0118",
+      "system": "Powertrain (ECT Sensor)",
+      "definition": "Engine Coolant Temperature Sensor Circuit High Input",
+      "inspection_steps": "1. High ECT voltage reads as extreme cold to the PCM — usually an open circuit or high-resistance connection.\n2. Jump signal pin to ground with sensor unplugged: display should swing toward hot, confirming PCM side is intact.\n3. Replace sensor if open-circuit resistance is confirmed across sensor terminals."
+    },
+    {
+      "code": "P0130",
+      "system": "Powertrain (O2 Sensor — Bank 1, Sensor 1)",
+      "definition": "O2 Sensor Circuit Malfunction (Bank 1, Sensor 1)",
+      "inspection_steps": "1. Confirm heater function first — an unheated sensor takes too long to go active and can set this code on its own.\n2. Check for exhaust leaks upstream of the sensor; diluted exhaust skews signal voltage erratically.\n3. Back-probe signal wire at the PCM harness — upstream O2 should toggle between 0.1V and 0.9V at closed-loop idle."
+    },
+    {
+      "code": "P0131",
+      "system": "Powertrain (O2 Sensor — Bank 1, Sensor 1)",
+      "definition": "O2 Sensor Circuit Low Voltage (Bank 1, Sensor 1)",
+      "inspection_steps": "1. Sustained low O2 voltage typically means a lean exhaust condition — confirm fuel trims before condemning the sensor.\n2. Check for vacuum leaks, weak fuel pressure, or failing injectors driving the mixture lean.\n3. If fuel system checks out, inspect sensor for contamination from silicone sealant or coolant intrusion in the exhaust."
+    },
+    {
+      "code": "P0133",
+      "system": "Powertrain (O2 Sensor — Bank 1, Sensor 1)",
+      "definition": "O2 Sensor Circuit Slow Response (Bank 1, Sensor 1)",
+      "inspection_steps": "1. Watch toggle rate on live data — a healthy upstream O2 switches 6-10 times per 10 seconds at idle.\n2. Inspect for engine oil or coolant in the exhaust that's coating the sensor element.\n3. Confirm heater is working — a lazy heater makes the sensor look sluggish until it finally reaches operating temp."
+    },
+    {
+      "code": "P0136",
+      "system": "Powertrain (O2 Sensor — Bank 1, Sensor 2)",
+      "definition": "O2 Sensor Circuit Malfunction (Bank 1, Sensor 2)",
+      "inspection_steps": "1. Locate the downstream (post-cat) sensor — it is often more exposed to road debris; inspect harness routing carefully.\n2. Verify sensor heater circuit: apply 12V and check for ~0.5-1 amp current draw on a good heater element.\n3. Downstream O2 should read relatively flat around 0.6-0.8V on a healthy catalyst — wild switching suggests a cat issue, not just sensor failure."
+    },
+    {
+      "code": "P0141",
+      "system": "Powertrain (O2 Sensor Heater — Bank 1, Sensor 2)",
+      "definition": "O2 Sensor Heater Circuit Malfunction (Bank 1, Sensor 2)",
+      "inspection_steps": "1. Check the fuse for the O2 heater circuit — it is often shared with other heated sensors on the same branch.\n2. Measure resistance across heater terminals: typically 2-10 ohms for a good element; OL means the heater element is open.\n3. If the heater element ohms out good, inspect PCM heater control circuit for a failed driver transistor."
+    },
     {
       "code": "P0171",
       "system": "Powertrain (Fuel and Air Metering)",
       "definition": "System Too Lean (Bank 1)",
       "inspection_steps": "1. Check for vacuum leaks downstream of the MAF sensor.\n2. Inspect fuel pump pressure and delivery volume.\n3. Verify unmetered air intrusion via the PCV valve system."
+    },
+    {
+      "code": "P0172",
+      "system": "Powertrain (Fuel and Air Metering)",
+      "definition": "System Too Rich (Bank 1)",
+      "inspection_steps": "1. Check for a stuck-open injector — perform an injector balance test and compare cylinder contribution.\n2. Inspect the fuel pressure regulator for diaphragm failure — pull the vacuum line and check for fuel on the manifold side.\n3. Confirm MAF sensor isn't over-reporting airflow, which tricks the PCM into delivering excess fuel."
+    },
+    {
+      "code": "P0174",
+      "system": "Powertrain (Fuel and Air Metering)",
+      "definition": "System Too Lean (Bank 2)",
+      "inspection_steps": "1. On V-engines, Bank 2 lean codes often point to a vacuum leak on that bank's intake — inspect intake manifold gaskets and runner seals.\n2. Confirm fuel delivery is even across both banks by comparing individual injector pulse width on scan tool.\n3. A Bank 2-specific lean with Bank 1 in trim suggests a localized vacuum or fuel delivery issue, not a global system fault."
+    },
+    {
+      "code": "P0175",
+      "system": "Powertrain (Fuel and Air Metering)",
+      "definition": "System Too Rich (Bank 2)",
+      "inspection_steps": "1. Check Bank 2 injectors for excessive leak-down — a leaking injector floods one bank overnight with fuel.\n2. Compare Bank 1 and Bank 2 long-term fuel trims; a large discrepancy between banks narrows the fault to Bank 2 hardware.\n3. Inspect for coolant intrusion on the Bank 2 side — coolant in the combustion chamber causes a rich reading on the downstream O2."
+    },
+    {
+      "code": "P0181",
+      "system": "Powertrain (Fuel Temperature Sensor)",
+      "definition": "Fuel Temperature Sensor A Circuit Range / Performance",
+      "inspection_steps": "1. Locate the fuel temperature sensor — it is commonly found on the fuel filter housing or injection pump on diesel applications.\n2. Compare sensor reading to ambient temperature at cold start — they should be within a few degrees of each other before the engine heats up.\n3. Inspect wiring and connector for damage; the sensor is close to the fuel system and sees heat and vibration."
+    },
+    {
+      "code": "P0182",
+      "system": "Powertrain (Fuel Temperature Sensor)",
+      "definition": "Fuel Temperature Sensor A Circuit Low Input",
+      "inspection_steps": "1. A low fuel temp signal reads as extremely hot fuel to the PCM — check for a signal wire shorted to ground.\n2. Measure resistance across sensor terminals and compare to temperature-resistance spec.\n3. Inspect connector seal condition — a failed seal allows moisture intrusion that corrodes sensor terminals."
+    },
+    {
+      "code": "P0201",
+      "system": "Powertrain (Fuel Injector)",
+      "definition": "Injector Circuit Open — Cylinder 1",
+      "inspection_steps": "1. Measure resistance across injector terminals: typically 11-17 ohms for a port injector; near zero or OL indicates failure.\n2. Confirm injector power supply — one rail wire feeds multiple injectors, so a blown fuse affects the whole bank.\n3. Check PCM driver signal at the injector harness; no pull-down signal means suspect the PCM injector driver."
+    },
+    {
+      "code": "P0202",
+      "system": "Powertrain (Fuel Injector)",
+      "definition": "Injector Circuit Open — Cylinder 2",
+      "inspection_steps": "1. Measure injector coil resistance — out-of-spec resistance means replace the injector.\n2. Use a noid light to confirm the PCM is pulsing the injector circuit.\n3. Inspect the connector and harness for heat damage, especially near exhaust manifold surfaces."
+    },
+    {
+      "code": "P0203",
+      "system": "Powertrain (Fuel Injector)",
+      "definition": "Injector Circuit Open — Cylinder 3",
+      "inspection_steps": "1. Confirm companion misfire code P0303 — a dead injector paired with a misfire narrows the fault quickly.\n2. Check injector resistance and power supply before suspecting the PCM driver.\n3. Inspect harness for wiring chafed against the engine block or transmission bell housing."
+    },
+    {
+      "code": "P0204",
+      "system": "Powertrain (Fuel Injector)",
+      "definition": "Injector Circuit Open — Cylinder 4",
+      "inspection_steps": "1. Run a cylinder contribution test on scan tool — zero contribution on cylinder 4 confirms injector fault.\n2. Swap injector with an adjacent cylinder and check if the code follows the injector or stays on cylinder 4.\n3. If code stays on cylinder 4 after injector swap, trace the harness and inspect the PCM driver circuit."
     },
     {
       "code": "P0300",
@@ -15,10 +177,214 @@
       "inspection_steps": "1. Pull freeze-frame data and confirm misfire counters per cylinder.\n2. Inspect plugs, coils, and ignition wiring for arc paths.\n3. Test fuel pressure and injector balance.\n4. Verify compression and check for vacuum/intake leaks."
     },
     {
+      "code": "P0301",
+      "system": "Powertrain (Ignition / Misfire)",
+      "definition": "Cylinder 1 Misfire Detected",
+      "inspection_steps": "1. Swap the coil from cylinder 1 to another cylinder — if the misfire code follows the coil, replace the coil.\n2. Check spark plug condition: oil fouling, cracked insulator, or excessive gap will cause a cylinder-specific miss.\n3. Perform a wet compression test to rule out ring or valve sealing issues specific to that cylinder."
+    },
+    {
+      "code": "P0302",
+      "system": "Powertrain (Ignition / Misfire)",
+      "definition": "Cylinder 2 Misfire Detected",
+      "inspection_steps": "1. Rotate coil to a known-good position — if misfire follows the coil, the coil is the fault.\n2. Check plug wire resistance if applicable: over 10,000 ohms per foot indicates a failing wire.\n3. Use a misfire monitor on scan tool to confirm the fault is cylinder 2 specific and not a random scatter."
+    },
+    {
+      "code": "P0303",
+      "system": "Powertrain (Ignition / Misfire)",
+      "definition": "Cylinder 3 Misfire Detected",
+      "inspection_steps": "1. Inspect cylinder 3 fuel injector alongside ignition — look for companion DTC P0203.\n2. Swap coil to another cylinder and clear codes; drive to confirm if misfire follows the coil.\n3. Check for coolant intrusion on cylinder 3 head gasket if misfire is accompanied by white exhaust smoke."
+    },
+    {
+      "code": "P0304",
+      "system": "Powertrain (Ignition / Misfire)",
+      "definition": "Cylinder 4 Misfire Detected",
+      "inspection_steps": "1. On 4-cylinder engines cylinder 4 is often the highest-stress — inspect plug, coil, and injector first.\n2. Confirm ignition system swap isolates the fault to this cylinder before moving to engine mechanical testing.\n3. Run compression and leakdown on cylinder 4 if ignition and injector check out clean."
+    },
+    {
+      "code": "P0325",
+      "system": "Powertrain (Knock Sensor)",
+      "definition": "Knock Sensor 1 Circuit Malfunction (Bank 1)",
+      "inspection_steps": "1. Knock sensor mounting torque matters — too loose and it won't sense vibration; too tight and it cracks. Verify to spec.\n2. Check harness routing — knock sensor wiring runs near hot areas and can develop opens or shorts from heat cycling.\n3. Confirm sensor resistance matches spec (typically 100k+ ohms on a resonant-type; flat-response types vary by OEM)."
+    },
+    {
+      "code": "P0335",
+      "system": "Powertrain (Crankshaft Position Sensor)",
+      "definition": "Crankshaft Position Sensor A Circuit Malfunction",
+      "inspection_steps": "1. Inspect the sensor tip and reluctor ring for metal debris — shavings stick to the sensor and cause signal dropouts.\n2. Check air gap between sensor face and ring gear teeth — most specs fall in the 0.030\"–0.060\" range.\n3. Use a scope at cranking speed to verify a clean reluctor pulse pattern; a dropped or missing tooth is immediately visible on the waveform."
+    },
+    {
+      "code": "P0340",
+      "system": "Powertrain (Camshaft Position Sensor)",
+      "definition": "Camshaft Position Sensor A Circuit Malfunction (Bank 1)",
+      "inspection_steps": "1. Check cam sensor connector for damaged or backed-out pins — the harness near this sensor sees constant oil mist.\n2. Inspect O-ring seal if sensor inserts into the head — a failed seal causes oil intrusion into the connector cavity.\n3. Confirm reluctor ring (cam gear) is clean and intact; a broken or chipped tooth causes intermittent drop-outs on scope."
+    },
+    {
+      "code": "P0351",
+      "system": "Powertrain (Ignition System)",
+      "definition": "Ignition Coil A Primary / Secondary Circuit Malfunction",
+      "inspection_steps": "1. Measure primary resistance across coil terminals: typical spec is 0.5-2.0 ohms; outside this range, replace.\n2. Measure secondary resistance (plug wire terminal to primary terminal): typically 6,000-12,000 ohms.\n3. Inspect the coil boot for carbon tracking — a black line across the boot surface indicates arc-over to ground."
+    },
+    {
+      "code": "P0352",
+      "system": "Powertrain (Ignition System)",
+      "definition": "Ignition Coil B Primary / Secondary Circuit Malfunction",
+      "inspection_steps": "1. Check coil connector and harness — shared trigger wires that run to multiple coils can short against each other.\n2. Confirm PCM control signal reaches the coil with a test light or logic probe; no signal points to the PCM driver output.\n3. Swap coil with a known-good unit to isolate a hardware failure before condemning the circuit."
+    },
+    {
+      "code": "P0353",
+      "system": "Powertrain (Ignition System)",
+      "definition": "Ignition Coil C Primary / Secondary Circuit Malfunction",
+      "inspection_steps": "1. Verify ignition power feed to the coil — confirm battery voltage at the coil power terminal during cranking.\n2. Check for carbon tracking on plug boot or coil tower; tracks are often only visible under UV light in a dark shop.\n3. Inspect spark plug condition — a heavily fouled plug forces the coil to work harder and accelerates coil failure."
+    },
+    {
+      "code": "P0354",
+      "system": "Powertrain (Ignition System)",
+      "definition": "Ignition Coil D Primary / Secondary Circuit Malfunction",
+      "inspection_steps": "1. Look for companion misfire codes — P0354 often pairs with a cylinder-specific misfire DTC.\n2. Test coil primary resistance and compare to spec; reading outside 0.5-2.0 ohms typically means replace the coil.\n3. Check harness for heat damage near the exhaust manifold — coil D wiring on many engines runs directly above the pipe."
+    },
+    {
       "code": "P0420",
       "system": "Powertrain (Catalyst System)",
       "definition": "Catalyst System Efficiency Below Threshold (Bank 1)",
       "inspection_steps": "1. Compare upstream vs downstream O2 sensor activity on scan tool.\n2. Inspect exhaust for leaks ahead of the rear O2 sensor.\n3. Confirm no underlying misfire or lean/rich condition skewing readings."
+    },
+    {
+      "code": "P0421",
+      "system": "Powertrain (Catalyst System)",
+      "definition": "Warm Up Catalyst Efficiency Below Threshold (Bank 1)",
+      "inspection_steps": "1. Confirm the warm-up catalyst (pre-cat) is functioning — watch upstream O2 switching frequency versus downstream during cold-start.\n2. Inspect for exhaust leaks between the pre-cat and main catalyst that could skew downstream sensor readings.\n3. Rule out a rich or misfiring condition before replacing the catalyst assembly."
+    },
+    {
+      "code": "P0430",
+      "system": "Powertrain (Catalyst System)",
+      "definition": "Catalyst System Efficiency Below Threshold (Bank 2)",
+      "inspection_steps": "1. On V-engines, Bank 2 catalyst issues often share root causes with Bank 1 — check both banks' fuel trim history.\n2. Compare Bank 2 upstream vs downstream O2 switching rate on live data.\n3. Inspect Bank 2 exhaust manifold for cracks or leaks before the downstream sensor position."
+    },
+    {
+      "code": "P0431",
+      "system": "Powertrain (Catalyst System)",
+      "definition": "Warm Up Catalyst Efficiency Below Threshold (Bank 2)",
+      "inspection_steps": "1. Verify Bank 2 fuel trims are within spec — a persistently rich or lean condition poisons catalyst efficiency over time.\n2. Watch cold-start O2 sensor behavior on Bank 2; slow downstream activity during warm-up suggests pre-cat problems.\n3. Inspect for exhaust leaks on the Bank 2 runner upstream of the catalyst."
+    },
+    {
+      "code": "P0440",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Malfunction",
+      "inspection_steps": "1. Inspect gas cap first — ensure it seals and clicks. Replace if the cap seal is cracked or deformed.\n2. Smoke-test the EVAP system; apply approximately 0.5 psi and trace smoke at all hose connections, purge valve, and charcoal canister.\n3. Confirm the vent valve cycles correctly — it must close to allow a sealed pressure/vacuum self-test."
+    },
+    {
+      "code": "P0441",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Incorrect Purge Flow",
+      "inspection_steps": "1. Check the purge solenoid — it should be normally closed. Apply 12V, confirm it clicks open, then test flow with a vacuum pump.\n2. Inspect purge hose routing for kinks or blockages between the charcoal canister and intake manifold.\n3. With engine at idle, command purge open via scan tool — a healthy system causes a slight, noticeable idle stumble."
+    },
+    {
+      "code": "P0442",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Leak Detected (Small Leak — 0.020\")",
+      "inspection_steps": "1. Check the gas cap and fuel filler neck first — the most common small leak source by far.\n2. Use an EVAP smoke machine to pressurize the system to 0.5 psi; trace smoke to the exact leak point.\n3. Common small leak spots: purge solenoid diaphragm, canister vent valve seat, and cracked EVAP hose near the fuel tank."
+    },
+    {
+      "code": "P0443",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Purge Control Valve Circuit Malfunction",
+      "inspection_steps": "1. Measure purge solenoid resistance: typically 20-40 ohms for a good solenoid.\n2. Confirm power supply to the solenoid — usually switched 12V from the PCM relay or ignition feed.\n3. Check for a failed PCM driver output by back-probing the control wire; expect a ground signal when PCM commands purge."
+    },
+    {
+      "code": "P0446",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Vent Control Circuit Malfunction",
+      "inspection_steps": "1. Locate the canister vent valve (usually near or on the charcoal canister) — inspect for mud, insect nests, or physical damage blocking the vent path.\n2. Test solenoid resistance and confirm PCM can open/close it via bidirectional scan tool command.\n3. Inspect vent hose from canister to atmosphere; a blocked vent prevents proper EVAP self-test completion."
+    },
+    {
+      "code": "P0455",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Leak Detected (Large Leak — 0.080\")",
+      "inspection_steps": "1. Start with the fuel cap — a missing or cross-threaded cap causes a P0455 almost immediately.\n2. Smoke-test the full EVAP system; a large leak will show smoke quickly, often at a disconnected hose or cracked canister body.\n3. Inspect the filler neck to tank coupling — rubber couplings crack with age, especially in freeze-thaw climates."
+    },
+    {
+      "code": "P0456",
+      "system": "Powertrain (EVAP System)",
+      "definition": "Evaporative Emission Control System Leak Detected (Very Small Leak — 0.010\")",
+      "inspection_steps": "1. A 0.010\" leak is near the detection limit of most smoke machines — use a quality unit and allow full system pressure soak time.\n2. Focus on connectors and hose clamps: a diluted soapy water spray on a pressurized system will bubble at the leak point.\n3. If the leak can't be located with smoke, inspect purge valve and vent valve seat integrity under closer inspection."
+    },
+    {
+      "code": "P0700",
+      "system": "Powertrain (Transmission)",
+      "definition": "Transmission Control System Malfunction",
+      "inspection_steps": "1. P0700 is a gateway code — always pull the full TCM code list; companion DTCs will point to the real fault.\n2. Check transmission fluid level and condition; dark, burned fluid with a metallic smell indicates internal wear.\n3. Inspect TCM wiring harness and connector — transmission harnesses are exposed to heat and constant flex."
+    },
+    {
+      "code": "P0715",
+      "system": "Powertrain (Transmission)",
+      "definition": "Input / Turbine Speed Sensor Circuit Malfunction",
+      "inspection_steps": "1. Measure sensor resistance and compare to spec; open or shorted sensor windings cause a constant signal fault.\n2. Inspect reluctor ring on the input shaft — debris or a chipped tooth causes erratic signal spikes.\n3. Check harness for opens or shorts, especially where the trans harness routes over or near the valve body."
+    },
+    {
+      "code": "P0720",
+      "system": "Powertrain (Transmission)",
+      "definition": "Output Speed Sensor Circuit Malfunction",
+      "inspection_steps": "1. Locate the output sensor on the transmission housing — inspect mounting for proper seating and O-ring condition.\n2. Measure sensor resistance and compare to OEM spec.\n3. Check for metal shavings on the sensor tip; excessive debris indicates internal wear beyond just the sensor."
+    },
+    {
+      "code": "P0730",
+      "system": "Powertrain (Transmission)",
+      "definition": "Incorrect Gear Ratio",
+      "inspection_steps": "1. Confirm both input and output speed sensors are reading accurately before suspecting internal mechanical failure.\n2. Check for a slipping clutch pack by comparing gear ratio under load versus coast conditions.\n3. Verify fluid level and line pressure — low line pressure causes slippage that shows up as an incorrect ratio."
+    },
+    {
+      "code": "P0731",
+      "system": "Powertrain (Transmission)",
+      "definition": "Gear 1 Incorrect Ratio",
+      "inspection_steps": "1. A first gear ratio fault typically points to the forward clutch pack or one-way clutch — confirm with a stall speed test.\n2. Check line pressure in first gear; low pressure at the right point in the shift sequence suggests a solenoid or valve body issue.\n3. Inspect fluid for metal contamination — first gear failure commonly generates debris visible in the pan."
+    },
+    {
+      "code": "P0732",
+      "system": "Powertrain (Transmission)",
+      "definition": "Gear 2 Incorrect Ratio",
+      "inspection_steps": "1. Second gear ratio fault often involves the 2-4 brake band or servo — inspect band adjustment if the transmission has an adjustable band.\n2. Compare shift timing and firmness at the 1-2 shift; a soft or delayed shift under load points to hydraulic circuit issues.\n3. Check the 2nd gear shift solenoid resistance and confirm it strokes fully when commanded by scan tool."
+    },
+    {
+      "code": "B0001",
+      "system": "Body (Restraint Systems)",
+      "definition": "Frontal Crash Detected / Restraint System Deployment",
+      "inspection_steps": "1. If vehicle has been in a collision: inspect airbag clockspring, seat belt pre-tensioners, and all deployed components before clearing.\n2. SRS codes require an SRS-capable scan tool — a basic generic OBD2 reader will not read or clear these codes.\n3. After airbag deployment, replace all deployed units and the SRS module per manufacturer procedure before returning vehicle to service."
+    },
+    {
+      "code": "B1000",
+      "system": "Body (Body Control Module)",
+      "definition": "Body Control Module — Internal Failure",
+      "inspection_steps": "1. Verify BCM power and ground supplies are within spec before condemning the module — low voltage causes false internal fault codes.\n2. Check for software updates; many BCM B1000 codes are addressed by a calibration or firmware update rather than module replacement.\n3. If replacement is required, confirm that the new BCM must be programmed to the vehicle VIN and specific option content."
+    },
+    {
+      "code": "C0031",
+      "system": "Chassis (ABS / Wheel Speed Sensor)",
+      "definition": "Right Front Wheel Speed Sensor Circuit Malfunction",
+      "inspection_steps": "1. Inspect sensor wiring harness from sensor to chassis routing clip — this cable flexes with suspension travel and breaks near the clip point over time.\n2. Measure sensor resistance: passive (variable reluctance) sensors typically 800-1,500 ohms; active (Hall effect) sensors require a supply voltage check.\n3. Spin the hub by hand while watching sensor frequency on a scope or scan tool — erratic or missing signal during rotation confirms sensor or tone ring damage."
+    },
+    {
+      "code": "C0035",
+      "system": "Chassis (ABS / Wheel Speed Sensor)",
+      "definition": "Left Front Wheel Speed Sensor Circuit Malfunction",
+      "inspection_steps": "1. Inspect wheel speed sensor tone ring for cracks, missing teeth, or heavy rust buildup causing signal drop-out.\n2. Check sensor mounting — a loose sensor changes air gap and degrades signal amplitude.\n3. Compare left vs right front signal amplitude on scope at the same speed; a significantly lower signal on one side points to the sensor or tone ring on that side."
+    },
+    {
+      "code": "U0001",
+      "system": "Network Communication (CAN Bus)",
+      "definition": "High Speed CAN Communication Bus — Circuit Malfunction",
+      "inspection_steps": "1. Measure CAN bus resistance with all modules unplugged: should read ~60 ohms between CAN Hi and CAN Lo (two 120-ohm terminating resistors in parallel).\n2. Check for a shorted module pulling the bus down — disconnect modules one at a time and recheck bus resistance after each.\n3. Inspect DLC connector pins 6 (CAN Hi) and 14 (CAN Lo) for damage or corrosion; this is the easiest access point."
+    },
+    {
+      "code": "U0100",
+      "system": "Network Communication (CAN Bus)",
+      "definition": "Lost Communication with ECM / PCM",
+      "inspection_steps": "1. Verify ECM power and ground circuits are intact — a module that lost power won't communicate on the bus.\n2. Check the ECM fuse and main relay before pulling the module.\n3. Inspect CAN bus wiring to the ECM connector for damage; confirm ~60-ohm resistance at the DLC with ECM connected."
+    },
+    {
+      "code": "U0101",
+      "system": "Network Communication (CAN Bus)",
+      "definition": "Lost Communication with Transmission Control Module (TCM)",
+      "inspection_steps": "1. Confirm TCM has power and ground — check the TCM fuse and verify CAN bus wiring to the TCM connector is intact.\n2. Attempt to communicate with TCM directly on scan tool; if the module doesn't appear on a network scan, suspect power loss or internal failure.\n3. Check for chafed or corroded wiring in the trans harness where it routes through the firewall or near chassis ground points."
     }
   ]
 }
