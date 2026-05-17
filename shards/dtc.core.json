@@ -1,0 +1,24 @@
+{
+  "shard_version": "1.0.0",
+  "data_type": "diagnostic_trouble_codes",
+  "entries": [
+    {
+      "code": "P0171",
+      "system": "Powertrain (Fuel and Air Metering)",
+      "definition": "System Too Lean (Bank 1)",
+      "inspection_steps": "1. Check for vacuum leaks downstream of the MAF sensor.\n2. Inspect fuel pump pressure and delivery volume.\n3. Verify unmetered air intrusion via the PCV valve system."
+    },
+    {
+      "code": "P0300",
+      "system": "Powertrain (Ignition / Misfire)",
+      "definition": "Random / Multiple Cylinder Misfire Detected",
+      "inspection_steps": "1. Pull freeze-frame data and confirm misfire counters per cylinder.\n2. Inspect plugs, coils, and ignition wiring for arc paths.\n3. Test fuel pressure and injector balance.\n4. Verify compression and check for vacuum/intake leaks."
+    },
+    {
+      "code": "P0420",
+      "system": "Powertrain (Catalyst System)",
+      "definition": "Catalyst System Efficiency Below Threshold (Bank 1)",
+      "inspection_steps": "1. Compare upstream vs downstream O2 sensor activity on scan tool.\n2. Inspect exhaust for leaks ahead of the rear O2 sensor.\n3. Confirm no underlying misfire or lean/rich condition skewing readings."
+    }
+  ]
+}

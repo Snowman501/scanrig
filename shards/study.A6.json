@@ -1,0 +1,42 @@
+{
+  "shard_version": "1.0.0",
+  "data_type": "synthetic_study_drill",
+  "entries": [
+    {
+      "id": "A6_E001",
+      "question": "A digital multimeter shows a 0.8-volt drop across a ground circuit connection when the starter motor is cranking. What does this measurement indicate?",
+      "options": {
+        "A": "Normal voltage flow for a high-amperage circuit.",
+        "B": "Excessive resistance in the ground side circuit.",
+        "C": "An open circuit condition causing immediate system shutdown.",
+        "D": "A short-to-power condition on the supply line."
+      },
+      "correct_answer": "B",
+      "rationale": "A voltage drop exceeding 0.1 to 0.2 volts on a standard ground connection indicates unwanted resistance. During cranking, excessive ground-side resistance drops total voltage available to the starter solenoid."
+    },
+    {
+      "id": "A6_E002",
+      "question": "When testing a relay, Technician A says the coil should have low resistance (under 1 ohm). Technician B says the coil typically shows 50-120 ohms. Who is correct?",
+      "options": {
+        "A": "Technician A only.",
+        "B": "Technician B only.",
+        "C": "Both technicians.",
+        "D": "Neither technician."
+      },
+      "correct_answer": "B",
+      "rationale": "A standard automotive relay control coil typically reads between 50 and 120 ohms. A reading near zero indicates a shorted coil; an OL reading indicates an open coil."
+    },
+    {
+      "id": "A6_E003",
+      "question": "A vehicle has a parasitic draw of 250 mA after all modules have gone to sleep. What is the most likely conclusion?",
+      "options": {
+        "A": "Within normal specification — no action needed.",
+        "B": "Exceeds typical 50 mA limit; a module or circuit is keeping a load active.",
+        "C": "Battery is undersized for the vehicle.",
+        "D": "Alternator diode failure causing AC ripple."
+      },
+      "correct_answer": "B",
+      "rationale": "Most modern vehicles target under 50 mA of key-off draw after sleep. 250 mA is roughly five times that target and will discharge a healthy battery within days, indicating a module or accessory circuit is not entering sleep state correctly."
+    }
+  ]
+}
