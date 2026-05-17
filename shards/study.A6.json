@@ -1,5 +1,5 @@
 {
-  "shard_version": "1.0.0",
+  "shard_version": "2.0.0",
   "data_type": "synthetic_study_drill",
   "entries": [
     {
@@ -37,6 +37,366 @@
       },
       "correct_answer": "B",
       "rationale": "Most modern vehicles target under 50 mA of key-off draw after sleep. 250 mA is roughly five times that target and will discharge a healthy battery within days, indicating a module or accessory circuit is not entering sleep state correctly."
+    },
+    {
+      "id": "A6_E004",
+      "question": "A circuit has a 12-volt supply and a total resistance of 4 ohms. What is the current flow through the circuit?",
+      "options": {
+        "A": "3 amperes.",
+        "B": "48 amperes.",
+        "C": "0.33 amperes.",
+        "D": "8 amperes."
+      },
+      "correct_answer": "A",
+      "rationale": "Ohm's Law: I = V ÷ R. Dividing 12 volts by 4 ohms equals 3 amperes. This is the fundamental relationship governing every electrical circuit in the vehicle."
+    },
+    {
+      "id": "A6_E005",
+      "question": "Three resistors of 2, 4, and 6 ohms are wired in series. What is the total circuit resistance?",
+      "options": {
+        "A": "1.09 ohms.",
+        "B": "12 ohms.",
+        "C": "4 ohms.",
+        "D": "0.92 ohms."
+      },
+      "correct_answer": "B",
+      "rationale": "In a series circuit, total resistance is the simple sum of all individual resistances: 2 + 4 + 6 = 12 ohms. Every amp of current must pass through every resistor in sequence, so the resistances add directly."
+    },
+    {
+      "id": "A6_E006",
+      "question": "Technician A says that adding a second load in parallel with the first will increase total circuit resistance. Technician B says it will decrease total circuit resistance. Who is correct?",
+      "options": {
+        "A": "Technician A only.",
+        "B": "Technician B only.",
+        "C": "Both technicians.",
+        "D": "Neither technician."
+      },
+      "correct_answer": "B",
+      "rationale": "Parallel circuits provide additional paths for current. Each added branch reduces total resistance because the source sees more paths and must supply more current. Total parallel resistance is always less than the smallest individual branch resistance."
+    },
+    {
+      "id": "A6_E007",
+      "question": "A battery load test is performed. With a load of one-half the cold cranking amp rating applied for 15 seconds, the battery voltage drops to 9.1 volts at 70°F. What is the correct interpretation?",
+      "options": {
+        "A": "The battery passed — 9.1 volts is above the 9.6-volt minimum threshold.",
+        "B": "The battery failed — it must hold at least 9.6 volts to pass.",
+        "C": "The test is inconclusive because temperature correction was not applied.",
+        "D": "The battery passed because voltage did not drop below 8 volts."
+      },
+      "correct_answer": "B",
+      "rationale": "A battery load test pass threshold is a minimum of 9.6 volts at 70°F or above during the 15-second load. A reading of 9.1 volts means the battery failed the test and should be replaced."
+    },
+    {
+      "id": "A6_E008",
+      "question": "A fully charged 12-volt lead-acid battery at rest should measure approximately what open-circuit voltage?",
+      "options": {
+        "A": "11.8 volts.",
+        "B": "12.2 volts.",
+        "C": "12.6 volts.",
+        "D": "13.5 volts."
+      },
+      "correct_answer": "C",
+      "rationale": "A fully charged 12-volt lead-acid battery has an open-circuit (no-load, surface charge removed) voltage of approximately 12.6 volts. A resting reading of 12.2 volts indicates roughly 50% state of charge; below 12.0 volts is severely discharged."
+    },
+    {
+      "id": "A6_E009",
+      "question": "While testing battery cable condition during cranking, a voltage drop of 0.6 volts is measured on the positive cable. What should the technician conclude?",
+      "options": {
+        "A": "Normal — up to 1 volt of drop is acceptable on a starter cable.",
+        "B": "Excessive — positive cable should drop no more than 0.2 volts during cranking.",
+        "C": "Indicates a faulty starter motor drawing too much current.",
+        "D": "Indicates a discharged battery, not a cable fault."
+      },
+      "correct_answer": "B",
+      "rationale": "A positive battery cable should drop no more than 0.2 volts during cranking. A 0.6-volt drop means resistance in the cable, clamp, or terminal is robbing voltage from the starter. Clean or replace the cable and clamp before condemning the starter or battery."
+    },
+    {
+      "id": "A6_E010",
+      "question": "Technician A says a typical starter current draw for a small 4-cylinder engine is 400-500 amperes. Technician B says it is typically 150-200 amperes. Who is correct?",
+      "options": {
+        "A": "Technician A only.",
+        "B": "Technician B only.",
+        "C": "Both technicians.",
+        "D": "Neither technician."
+      },
+      "correct_answer": "B",
+      "rationale": "A healthy starter on a small displacement gasoline engine typically draws 150-200 amperes during cranking. Values much higher indicate excessive friction, tight engine, or a fault inside the starter. Values well below 100 amperes with slow cranking suggest high resistance in the supply or ground circuit."
+    },
+    {
+      "id": "A6_E011",
+      "question": "A vehicle cranks slowly and the battery tests good. A voltage drop test of the starter feed circuit shows 0.9 volts from battery positive to the starter terminal. What is the MOST likely cause?",
+      "options": {
+        "A": "Discharged battery.",
+        "B": "Faulty starter motor with high internal resistance.",
+        "C": "Resistance in the positive cable, main fusible link, or battery terminal connection.",
+        "D": "Open neutral safety switch."
+      },
+      "correct_answer": "C",
+      "rationale": "A 0.9-volt drop measured across the positive feed circuit during cranking points to resistance between the battery terminal and the starter input — not inside the starter itself. The voltage is being consumed by a corroded cable, loose terminal, or degraded fusible link before it ever reaches the starter."
+    },
+    {
+      "id": "A6_E012",
+      "question": "A vehicle will not crank in any gear. The starter motor cranks normally when the solenoid is jumped at the battery. What component is the MOST likely cause?",
+      "options": {
+        "A": "Faulty starter motor.",
+        "B": "Discharged or shorted battery.",
+        "C": "Neutral safety switch, clutch interlock, or ignition switch not completing the starter control circuit.",
+        "D": "Blown main fuse."
+      },
+      "correct_answer": "C",
+      "rationale": "If the starter works when jumped directly but not through the normal control circuit, the starter motor and battery are not the fault. The problem lies in the starter control circuit — most commonly the neutral safety switch, clutch interlock (manual trans), or ignition switch that feeds the starter solenoid control terminal."
+    },
+    {
+      "id": "A6_E013",
+      "question": "When the ignition key is turned to Start, a single loud click is heard but the engine does not crank. The battery tests at full charge. What is the MOST likely cause?",
+      "options": {
+        "A": "Weak battery with insufficient CCA.",
+        "B": "Open in the starter control circuit.",
+        "C": "High resistance in the starter solenoid engagement circuit.",
+        "D": "Starter drive gear seized or starter motor with an open field circuit."
+      },
+      "correct_answer": "D",
+      "rationale": "One loud click means the solenoid is engaging — the control circuit is working and the battery has enough voltage to pull the solenoid in. The solenoid is closing, but the starter motor is not spinning. That points to an open in the starter motor itself (open armature or field), or a seized drive gear preventing rotation."
+    },
+    {
+      "id": "A6_E014",
+      "question": "An alternator output test is performed with a carbon pile load applied. The alternator produces 13.2 volts at maximum load. What does this indicate?",
+      "options": {
+        "A": "Normal output — 13.2 volts is within spec under load.",
+        "B": "Below specification — a good alternator should hold 13.5-14.5 volts even under load.",
+        "C": "Overcharging condition — voltage is too high.",
+        "D": "Open diode in the rectifier bridge."
+      },
+      "correct_answer": "B",
+      "rationale": "Under a full load test, a healthy alternator should maintain output voltage between 13.5 and 14.5 volts. A reading of 13.2 volts under load indicates the alternator is not producing adequate output — possible causes include worn brushes, a failing rotor field coil, or a partially failed rectifier diode set."
+    },
+    {
+      "id": "A6_E015",
+      "question": "With the engine running at 2,000 RPM and moderate electrical load, the charging system should measure approximately how much voltage at the battery terminals?",
+      "options": {
+        "A": "12.6 volts.",
+        "B": "13.5 to 14.5 volts.",
+        "C": "15.0 to 16.0 volts.",
+        "D": "11.8 to 12.2 volts."
+      },
+      "correct_answer": "B",
+      "rationale": "Normal charging system voltage at the battery is 13.5 to 14.5 volts with the engine running. Below 13.5 volts means the system isn't keeping up with load; above 14.8-15 volts indicates a voltage regulator fault or a failing battery that's no longer acting as a voltage buffer."
+    },
+    {
+      "id": "A6_E016",
+      "question": "An AC ripple test on the charging system shows 0.7 volts AC at idle. What does this indicate?",
+      "options": {
+        "A": "Normal alternator output — AC ripple below 1 volt is acceptable.",
+        "B": "One or more rectifier diodes have failed in the alternator.",
+        "C": "The voltage regulator is cycling excessively.",
+        "D": "The battery has an internal short causing AC noise."
+      },
+      "correct_answer": "B",
+      "rationale": "AC ripple above approximately 0.5 volts on a charging system indicates a failed diode in the rectifier bridge. A good alternator converts AC to clean DC — failed diodes allow AC pulses to pass through into the electrical system, which can interfere with sensitive modules and eventually discharge the battery."
+    },
+    {
+      "id": "A6_E017",
+      "question": "A customer complains the battery warning lamp illuminates at idle but goes off at higher RPM. What is the MOST likely cause?",
+      "options": {
+        "A": "Faulty battery with low CCA.",
+        "B": "Slipping drive belt or worn alternator brushes causing low output at idle.",
+        "C": "Defective voltage regulator causing overcharge at high RPM.",
+        "D": "Open circuit in the battery warning lamp circuit."
+      },
+      "correct_answer": "B",
+      "rationale": "The alternator charging lamp illuminates when alternator output falls below battery voltage. A symptom that appears at idle but clears at higher RPM points to the alternator not spinning fast enough at idle to produce full output — caused by a slipping belt, worn brushes, or weak rotor field. At higher RPM the alternator overcomes the deficiency."
+    },
+    {
+      "id": "A6_E018",
+      "question": "Both headlights are dim. All other lamps are normal brightness. What is the MOST likely cause?",
+      "options": {
+        "A": "Both headlight bulbs are failing simultaneously.",
+        "B": "High resistance in the headlight ground circuit common to both lights.",
+        "C": "A blown headlight fuse.",
+        "D": "Low battery state of charge."
+      },
+      "correct_answer": "B",
+      "rationale": "When both headlights are equally dim but the rest of the vehicle is normal, the fault is most likely in a shared circuit — typically the common ground. A corroded or loose ground connection shared by both headlights drops voltage and reduces brightness. If the fuse were blown, the lights wouldn't work at all."
+    },
+    {
+      "id": "A6_E019",
+      "question": "A technician is aiming headlights on a vehicle with a flat floor. The aiming target wall is 25 feet away. Where should the center of the headlight beam be positioned on the target?",
+      "options": {
+        "A": "At the same height as the headlight center mark.",
+        "B": "Two inches below the headlight center height.",
+        "C": "Two inches above the headlight center height.",
+        "D": "At the height of the vehicle hood line."
+      },
+      "correct_answer": "B",
+      "rationale": "Standard headlight aim procedure places the center of the low-beam hot spot approximately 2 inches below the headlight center height at 25 feet. This slight downward aim ensures adequate road illumination without blinding oncoming drivers."
+    },
+    {
+      "id": "A6_E020",
+      "question": "All three brake lights fail at the same time. The turn signals and other lamps work correctly. What should be tested FIRST?",
+      "options": {
+        "A": "Each individual brake light bulb.",
+        "B": "The brake light switch and its fuse.",
+        "C": "The turn signal switch assembly.",
+        "D": "The body control module brake output driver."
+      },
+      "correct_answer": "B",
+      "rationale": "When all lamps in a single circuit fail simultaneously, the problem is upstream of all the individual bulbs — in the shared supply, switch, or fuse. The brake light switch and its dedicated fuse are the logical first checks when all three brake lights are out."
+    },
+    {
+      "id": "A6_E021",
+      "question": "A speedometer reads 15 mph higher than actual speed at all times. The vehicle uses a vehicle speed sensor (VSS) signal. Technician A says the VSS is faulty. Technician B says the final drive ratio or tire size change may have affected the calibration. Who is correct?",
+      "options": {
+        "A": "Technician A only.",
+        "B": "Technician B only.",
+        "C": "Both technicians could be correct.",
+        "D": "Neither technician."
+      },
+      "correct_answer": "C",
+      "rationale": "A consistent offset error — rather than an erratic or dead gauge — suggests either a miscalibrated input (tire size or gear ratio change affecting pulses per mile) or a failed sensor producing the wrong frequency. Both technicians have identified plausible causes; the diagnosis depends on the vehicle's service history."
+    },
+    {
+      "id": "A6_E022",
+      "question": "A fuel gauge reads full at all times. The fuel sending unit is the variable-resistor type in the tank. What does a full-deflection gauge reading MOST likely indicate?",
+      "options": {
+        "A": "An open circuit between the sending unit and the gauge.",
+        "B": "A short to ground on the sending unit signal wire.",
+        "C": "A faulty gauge cluster with an internal short.",
+        "D": "A stuck-closed vent valve on the fuel tank."
+      },
+      "correct_answer": "B",
+      "rationale": "On a variable-resistor fuel sender, the gauge reads in proportion to resistance. A grounded signal wire (short to ground) presents zero resistance to the gauge — the same electrical condition as a full tank on most systems. An open circuit would typically cause the gauge to read empty (maximum resistance side)."
+    },
+    {
+      "id": "A6_E023",
+      "question": "The malfunction indicator lamp (MIL) does not illuminate during the bulb check at key-on. The vehicle has no stored DTCs and all other warning lamps work. What is the MOST likely cause?",
+      "options": {
+        "A": "A fault in the PCM preventing DTC storage.",
+        "B": "The MIL bulb is burned out or the MIL driver circuit has an open.",
+        "C": "The OBD2 system has not completed its readiness monitors.",
+        "D": "The PCM has been recently reprogrammed."
+      },
+      "correct_answer": "B",
+      "rationale": "All warning lamps are commanded on at key-on as a bulb check by the PCM. A MIL that never illuminates during this check — while other lamps do — points to the lamp circuit itself: burned bulb, open wiring, or a failed PCM MIL driver. This should be repaired immediately; a faulty MIL circuit will not alert the driver to real faults."
+    },
+    {
+      "id": "A6_E024",
+      "question": "A power window moves slowly in both directions on one door only. The other windows operate normally. What should be tested FIRST?",
+      "options": {
+        "A": "The power window master switch.",
+        "B": "The window regulator motor current draw compared to specification.",
+        "C": "The body control module window output.",
+        "D": "The door wiring harness at the hinge area."
+      },
+      "correct_answer": "B",
+      "rationale": "Slow operation in both directions on a single window usually means the motor is working harder than it should — caused by a binding regulator, worn motor brushes, or a misaligned glass track adding friction. Measuring motor current draw versus specification tells you immediately whether the motor is overloaded or worn out before replacing any parts."
+    },
+    {
+      "id": "A6_E025",
+      "question": "The power door locks work from the driver door switch but not from the passenger side switch. All doors lock and unlock correctly when the driver switch is used. What is the MOST likely cause?",
+      "options": {
+        "A": "Faulty door lock relay.",
+        "B": "Open or shorted wiring in the door hinge area on the passenger side.",
+        "C": "A faulty body control module door lock driver.",
+        "D": "Blown power door lock fuse."
+      },
+      "correct_answer": "B",
+      "rationale": "Since the system works from the driver side, the relay, fuse, actuators, and BCM are all functioning. The fault is isolated to the passenger switch or its wiring. Door hinge wiring is a high-flex area that cracks over time — the most common failure point when one switch stops working while the rest of the system is normal."
+    },
+    {
+      "id": "A6_E026",
+      "question": "A horn does not sound when the horn button is pressed. The horn sounds normally when 12V is applied directly to the horn. What should be tested next?",
+      "options": {
+        "A": "Replace the horn — it works intermittently.",
+        "B": "Test the horn relay: power, ground, and control signal.",
+        "C": "Test the clock spring for continuity.",
+        "D": "Inspect the horn mounting bracket ground."
+      },
+      "correct_answer": "B",
+      "rationale": "Since the horn works when jumped directly, the horn itself is good. The fault lies between the battery and the horn. The horn relay is the next logical component to test — verify it has supply power, a proper ground, and that the horn button is correctly sending a control signal to the relay coil."
+    },
+    {
+      "id": "A6_E027",
+      "question": "Windshield wipers park in random positions when turned off instead of returning to the bottom of the sweep. What circuit is MOST likely at fault?",
+      "options": {
+        "A": "The wiper motor high-speed winding.",
+        "B": "The wiper park switch circuit inside the wiper motor.",
+        "C": "The wiper delay relay.",
+        "D": "The wiper pivot arm and linkage binding."
+      },
+      "correct_answer": "B",
+      "rationale": "The wiper park function relies on an internal park switch in the wiper motor that keeps the motor running after the switch is turned off until the wipers reach the parked position, then cuts power. A faulty park switch or its circuit causes the wipers to stop wherever they happen to be when power is cut."
+    },
+    {
+      "id": "A6_E028",
+      "question": "A blower motor runs at high speed only — all lower speeds are inoperative. The blower resistor is the traditional fixed-resistor type. What is the MOST likely cause?",
+      "options": {
+        "A": "Faulty blower motor with an open low-speed winding.",
+        "B": "Burned blower motor resistor pack.",
+        "C": "Faulty blower switch only allowing high-speed position.",
+        "D": "Blown high-speed fuse causing the motor to run on a backup circuit."
+      },
+      "correct_answer": "B",
+      "rationale": "In a traditional resistor-pack blower system, lower speeds are achieved by routing current through resistors that reduce voltage to the motor. High speed bypasses the resistors entirely. When the resistor pack fails (typically burns open), only the high-speed direct circuit still works — low and medium speeds stop functioning."
+    },
+    {
+      "id": "A6_E029",
+      "question": "When measuring CAN bus voltage with a DVOM, what approximate voltages should be present on CAN High and CAN Low during bus activity?",
+      "options": {
+        "A": "CAN High: 5V, CAN Low: 0V.",
+        "B": "CAN High: 2.5V to 3.5V, CAN Low: 1.5V to 2.5V.",
+        "C": "CAN High: 12V, CAN Low: 0V.",
+        "D": "Both lines should read exactly 2.5V at all times."
+      },
+      "correct_answer": "B",
+      "rationale": "On an idle CAN bus both lines rest at 2.5V. During bus activity, CAN High swings up to approximately 3.5V while CAN Low swings down to approximately 1.5V — the differential between the two is what carries the data. Reading 12V or 0V on either line indicates a wiring fault or shorted module, not normal bus activity."
+    },
+    {
+      "id": "A6_E030",
+      "question": "After replacing a BCM, the vehicle will not start and multiple warning lights are on. The new module was a direct factory replacement for the same year and model. What step was MOST likely missed?",
+      "options": {
+        "A": "Clearing codes with a scan tool after installation.",
+        "B": "Programming/configuring the new BCM to the vehicle VIN and options.",
+        "C": "Replacing the battery after module installation.",
+        "D": "Performing a throttle body relearn procedure."
+      },
+      "correct_answer": "B",
+      "rationale": "Most late-model BCMs must be programmed to the specific vehicle — the VIN, option content, and in some cases the immobilizer/transponder data. A blank replacement module installed without programming will not recognize the vehicle's key or communicate correctly with other modules on the network, causing a no-start and a cascade of communication faults."
+    },
+    {
+      "id": "A6_E031",
+      "question": "Which OBD2 DLC (Data Link Connector) pin is the standardized chassis ground?",
+      "options": {
+        "A": "Pin 4.",
+        "B": "Pin 6.",
+        "C": "Pin 14.",
+        "D": "Pin 16."
+      },
+      "correct_answer": "A",
+      "rationale": "OBD2 standardizes the 16-pin DLC: pin 4 is chassis ground, pin 5 is signal ground, pin 16 is battery positive. Pins 6 and 14 are CAN High and CAN Low respectively on most modern vehicles. Knowing the DLC pinout allows voltage and bus resistance checks without pulling connectors elsewhere in the vehicle."
+    },
+    {
+      "id": "A6_E032",
+      "question": "A technician wants to use an ohmmeter to test a circuit for continuity. What must be done BEFORE making the measurement?",
+      "options": {
+        "A": "Set the meter to DC voltage and back-probe the circuit.",
+        "B": "Disconnect power from the circuit being tested.",
+        "C": "Apply a known voltage source to one end of the circuit.",
+        "D": "Install an ammeter in series with the circuit."
+      },
+      "correct_answer": "B",
+      "rationale": "An ohmmeter applies its own small internal voltage to measure resistance. If the circuit being tested still has power applied from the vehicle, that external voltage can damage the meter and produce meaningless readings. Always disconnect the circuit from its power source before making resistance or continuity measurements."
+    },
+    {
+      "id": "A6_E033",
+      "question": "A circuit originally protected by a 15-amp fuse keeps blowing. The technician installs a 25-amp fuse to stop the nuisance blowing. What is the MOST serious concern with this action?",
+      "options": {
+        "A": "The larger fuse may not fit the fuse block correctly.",
+        "B": "The circuit wiring is now unprotected — a fault could cause a fire before the fuse opens.",
+        "C": "The larger fuse will reduce voltage available to the circuit.",
+        "D": "The circuit will draw more current with a larger fuse installed."
+      },
+      "correct_answer": "B",
+      "rationale": "Fuses protect the wiring, not the component. The fuse amperage is selected to open before the wire insulation can melt and ignite. By installing an oversized fuse, the technician has removed that protection — if a short circuit occurs, the wiring will heat to ignition temperature before the 25-amp fuse opens. The correct repair is to find and fix the overcurrent condition."
     }
   ]
 }
