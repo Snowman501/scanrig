@@ -602,7 +602,7 @@
   <div class="splash-brand">
     <div class="splash-logo">
       <span class="dot"></span>
-      <span class="mark">SCANRIG // v0.2</span>
+      <span class="mark">SCANRIG // v0.2.1</span>
     </div>
     <div class="splash-tag">Diagnostic &nbsp;·&nbsp; Study &nbsp;·&nbsp; Offline</div>
   </div>
@@ -836,20 +836,28 @@ const Storage = {
 };
 
 /* ----------------------------------------------------------
-   SYNC MANAGER — the bootloader Loren specified
-     1. Check local cache first
-     2. If missing, fetch from BASE_URL/{shardName}.json
-     3. Commit to localStorage
-     4. Return parsed JSON
+   SYNC MANAGER — stale-while-revalidate bootloader
+     1. Return cached data immediately (instant UI)
+     2. Fire background revalidation to check for newer shard
+     3. If cache miss, fetch synchronously then return
+     4. Fallback chain: remote → embedded → null
    ---------------------------------------------------------- */
 async function syncDataModule(shardName) {
   const cacheKey = CONFIG.CACHE_PREFIX + shardName;
-
-  // 1) Cache hit — return immediately
   const cached = Storage.get(cacheKey);
-  if (cached) return cached;
 
-  // 2) Cache miss — try remote
+  // Kick off background revalidation (only when online) — fire-and-forget
+  if (navigator.onLine !== false) {
+    revalidateInBackground(shardName, cacheKey, cached);
+  }
+
+  // Cache hit — return immediately for instant UI
+  if (cached) {
+    setSyncStatus('ok', 'CACHED');
+    return cached;
+  }
+
+  // Cache miss — fetch synchronously from remote
   setSyncStatus('syncing', 'SYNC ' + shardName);
   try {
     const res = await fetch(CONFIG.BASE_URL + shardName + '.json', { cache: 'no-cache' });
@@ -859,7 +867,7 @@ async function syncDataModule(shardName) {
     setSyncStatus('ok', 'SYNCED');
     return data;
   } catch (err) {
-    // 3) Remote failed — fall back to embedded
+    // Remote failed — fall back to embedded
     const fallback = EMBEDDED_SHARDS[shardName] || null;
     if (fallback) {
       Storage.set(cacheKey, fallback);
@@ -868,6 +876,42 @@ async function syncDataModule(shardName) {
     }
     setSyncStatus('err', 'OFFLINE');
     return null;
+  }
+}
+
+/* ----------------------------------------------------------
+   BACKGROUND REVALIDATION
+   Compares cached shard version against remote and updates
+   the cache + live banks if remote is different/newer.
+   Silent on failure (we already have working cached data).
+   ---------------------------------------------------------- */
+async function revalidateInBackground(shardName, cacheKey, cached) {
+  try {
+    const res = await fetch(CONFIG.BASE_URL + shardName + '.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    const remote = await res.json();
+
+    const cachedVersion = cached && cached.shard_version;
+    const remoteVersion = remote.shard_version;
+
+    if (!cached || cachedVersion !== remoteVersion) {
+      // New version available — update cache and live banks
+      Storage.set(cacheKey, remote);
+
+      if (shardName === 'dtc.core') {
+        DTC_BANK = remote.entries || [];
+      } else if (shardName === 'study.A6') {
+        STUDY_BANK = remote.entries || [];
+        renderStats();
+      }
+
+      setSyncStatus('ok', 'UPDATED');
+    } else {
+      // Cache is current with remote
+      setSyncStatus('ok', 'CURRENT');
+    }
+  } catch (err) {
+    // Silent failure — we already have working cached data
   }
 }
 

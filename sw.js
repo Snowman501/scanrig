@@ -6,7 +6,7 @@
    ============================================================ */
 'use strict';
 
-const CACHE_NAME = 'scanrig-v2';
+const CACHE_NAME = 'scanrig-v3';
 
 /* Files that make up the app shell — cached on install */
 const APP_SHELL = [
