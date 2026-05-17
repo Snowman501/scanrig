@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Background — fill full canvas for maskable safe zone -->
+  <rect width="512" height="512" fill="#0a0d12"/>
+
+  <!-- Subtle CRT grid overlay -->
+  <path d="M0 85h512M0 171h512M0 256h512M0 341h512M0 427h512" stroke="#00d9ff" stroke-width="0.8" opacity="0.05"/>
+  <path d="M85 0v512M171 0v512M256 0v512M341 0v512M427 0v512" stroke="#00d9ff" stroke-width="0.8" opacity="0.05"/>
+
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="202" fill="none" stroke="#00d9ff" stroke-width="2" opacity="0.12"/>
+  <!-- Middle ring -->
+  <circle cx="256" cy="256" r="138" fill="none" stroke="#00d9ff" stroke-width="3" opacity="0.22"/>
+  <!-- Inner ring -->
+  <circle cx="256" cy="256" r="84" fill="none" stroke="#00d9ff" stroke-width="4" opacity="0.45"/>
+
+  <!-- Glow halo behind dot -->
+  <circle cx="256" cy="256" r="48" fill="#00d9ff" opacity="0.18"/>
+  <!-- Center dot -->
+  <circle cx="256" cy="256" r="32" fill="#00d9ff"/>
+</svg>

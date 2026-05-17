@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" href="/icon-192.svg" />
 
 <style>
   /* ============================================================
@@ -571,6 +573,24 @@
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  /* ============================================================
+     KO-FI SUPPORT BUTTON
+     ============================================================ */
+  .kofi-btn {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    border: 1px solid var(--amber-dim);
+    border-radius: 4px;
+    padding: 5px 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+    flex-shrink: 0;
+  }
+  .kofi-btn:hover { background: rgba(255, 184, 0, 0.1); }
 </style>
 </head>
 <body>
@@ -610,10 +630,11 @@
     <div class="app-title">
       <span class="dot"></span>
       <span>SCANRIG</span>
+      <div class="sync-badge" id="sync-status">
+        <span id="sync-text">READY</span>
+      </div>
     </div>
-    <div class="sync-badge" id="sync-status">
-      <span id="sync-text">READY</span>
-    </div>
+    <a class="kofi-btn" href="https://ko-fi.com/scanrig" target="_blank" rel="noopener noreferrer">&#9829; Support</a>
   </header>
 
   <!-- ===== DIAGNOSTIC CONSOLE ===== -->
@@ -1030,6 +1051,20 @@ function escapeHtml(str) {
    GO
    ---------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', initSplash);
+
+/* ----------------------------------------------------------
+   SERVICE WORKER REGISTRATION
+   Registered after page load so it doesn't compete with
+   initial resource fetches. Feature-guarded for browsers
+   that don't support the API (rare, but safe).
+   ---------------------------------------------------------- */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      /* SW registration is enhancement-only — failure is silent */
+    });
+  });
+}
 </script>
 </body>
 </html>
